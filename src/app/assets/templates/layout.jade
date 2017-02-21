@@ -1,0 +1,45 @@
+doctype html
+html(lang='en' ng-app="meca")
+  head
+    meta(charset='UTF-8')
+    meta(name='viewport', content='width=device-width')
+    title= title
+    block css
+      link(rel="stylesheet", href="bower_components/bootstrap/dist/css/bootstrap.css")
+      link(rel='stylesheet', href='https://unpkg.com/angular-toastr/dist/angular-toastr.css')
+      link(rel='stylesheet', href='/assets/css/styles.css')
+
+    block js
+      script(src="bower_components/jquery/dist/jquery.js")
+      script(src="bower_components/angular/angular.js")
+      script(src="bower_components/bootstrap/dist/js/bootstrap.js")
+      script(src="bower_components/satellizer/dist/satellizer.js")
+      script(src="bower_components/angular-ui-router/release/angular-ui-router.min.js")
+      script(src="bower_components/angular-sanitize/angular-sanitize.min.js")
+      script(src="bower_components/angular-socket-io/socket.min.js")
+      script(src="https://code.angularjs.org/1.2.0/angular-animate.min.js")
+      script(src="https://unpkg.com/angular-toastr/dist/angular-toastr.tpls.js")
+      //-script(src="bower_components/toastr/toastr.js")
+      //-borrar
+      script(src='js/app.js')
+      script(src='http://localhost:35729/livereload.js')
+
+  body
+    //-NAV
+    nav.bg-faded.navbar.navbar-fixed-top.navbar-full.navbar-light.nav-height
+      a.navbar-brand
+        img.img-circle(height='20', alt='Brand', src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAMAAAC7IEhfAAAA81BMVEX///9VPnxWPXxWPXxWPXxWPXxWPXxWPXz///9hSYT6+vuFc6BXPn37+vz8+/z9/f2LeqWMe6aOfqiTg6uXiK5bQ4BZQX9iS4VdRYFdRYJfSINuWI5vWY9xXJF0YJR3Y5Z4ZZd5ZZd6Z5h9apq0qcW1qsW1q8a6sMqpnLyrn76tocCvpMGwpMJoUoprVYxeRoJjS4abjLGilLemmbrDutDFvdLPx9nX0eDa1OLb1uPd1+Td2OXe2eXh3Ofj3+nk4Orl4evp5u7u7PLv7fPx7/T08vb08/f19Pf29Pj39vn6+fuEcZ9YP35aQn/8/P1ZQH5fR4PINAOdAAAAB3RSTlMAIWWOw/P002ipnAAAAPhJREFUeF6NldWOhEAUBRvtRsfdfd3d3e3/v2ZPmGSWZNPDqScqqaSBSy4CGJbtSi2ubRkiwXRkBo6ZdJIApeEwoWMIS1JYwuZCW7hc6ApJkgrr+T/eW1V9uKXS5I5GXAjW2VAV9KFfSfgJpk+w4yXhwoqwl5AIGwp4RPgdK3XNHD2ETYiwe6nUa18f5jYSxle4vulw7/EtoCdzvqkPv3bn7M0eYbc7xFPXzqCrRCgH0Hsm/IjgTSb04W0i7EGjz+xw+wR6oZ1MnJ9TWrtToEx+4QfcZJ5X6tnhw+nhvqebdVhZUJX/oFcKvaTotUcvUnY188ue/n38AunzPPE8yg7bAAAAAElFTkSuQmCC')
+      ul.nav.navbar-nav.pull-right
+        li.nav-item.active
+          a.nav-link(ui-sref="/tour") Inicio
+        li.nav-item
+          a.nav-link(ui-sref="/login") Login
+        li.nav-item
+          a.nav-link(ui-sref="/registro") Registrarse  
+        li.nav-item
+          a.nav-link(ui-sref="/central")
+            | Prueba
+            br
+
+
+    block content
