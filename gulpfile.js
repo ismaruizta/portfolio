@@ -20,13 +20,10 @@ var gulp = require('gulp'),
 // TAREAS PRINCIPALES
 gulp.task('dist', ['clean'], function(){
   gulp.start(
-    'templates_Index' , 
     'templates' , 
     'styles' , 
-    'styles_Index' , 
     'scripts' , 
-    'images', 
-    'images_Index');
+    'images');
 });
 
 
@@ -56,15 +53,15 @@ gulp.task('develop', function () {
 
 // TAREAS DE DISTRIBUCION
 gulp.task('templates_Index', function() {
-  return gulp.src(['app/*.jade', 'app/assets/templates/*.jade'])
+  return gulp.src(['src/app/*.jade', 'src/app/assets/templates/*.jade'])
     .pipe(jade())
     .pipe(gulp.dest('public'))
     .pipe(notify({ message: 'templates_Index task complete' }));
 });
 
 
-gulp.task('templates', function() {
-  return gulp.src(['app/components/**/*.jade'])
+gulp.task('templates', ['templates_Index'], function() {
+  return gulp.src(['src/app/components/**/*.jade'])
     .pipe(jade())
     .pipe(gulp.dest('public/components'))
     .pipe(notify({ message: 'templates task complete' }));
@@ -73,10 +70,10 @@ gulp.task('templates', function() {
 
 gulp.task('scripts', function() {
   return gulp.src([
-      'app/*.js', 
+      'src/app/*.js', 
       //'app/scripts/**.js',
-      'app/components/**/scripts/*.js', 
-      'app/components/**/*.js',
+      'src/app/components/**/scripts/*.js', 
+      'src/app/components/**/*.js',
       //'app/scripts/blocks/**/*.js'
       ])
     .pipe(jshint('.jshintrc'))
@@ -103,8 +100,8 @@ gulp.task('scripts_Index', function() {
 });*/
 
 
-gulp.task('styles', function() {
-  return sass('app/components/**/styles/*.scss', { style: 'expanded' })
+gulp.task('styles', ['styles_Index'], function() {
+  return sass('src/app/components/**/styles/*.scss', { style: 'expanded' })
     .pipe(autoprefixer('last 2 version'))
     .pipe(gulp.dest('public/components'))
     .pipe(rename({suffix: '.min'}))
@@ -114,7 +111,7 @@ gulp.task('styles', function() {
 });
 
 gulp.task('styles_Index', function() {
-  return sass('app/assets/styles/*.scss', { style: 'expanded' })
+  return sass('src/app/assets/styles/*.scss', { style: 'expanded' })
     .pipe(autoprefixer('last 2 version'))
     .pipe(gulp.dest('public/assets/css'))
     .pipe(rename({suffix: '.min'}))
@@ -124,8 +121,8 @@ gulp.task('styles_Index', function() {
 });
 
 
-gulp.task('images', function() {
-  return gulp.src(['app/components/**/images/*'])
+gulp.task('images',['images_Index'], function() {
+  return gulp.src(['src/app/components/**/images/*'])
     .pipe(cache(imagemin({ optimizationLevel: 5, progressive: true, interlaced: true })))
     .pipe(gulp.dest('public/components'))
     .pipe(notify({ message: 'Images task complete' }));
@@ -133,7 +130,7 @@ gulp.task('images', function() {
 
 
 gulp.task('images_Index', function() {
-  return gulp.src(['app/assets/img/*'])
+  return gulp.src(['src/app/assets/img/*'])
     .pipe(cache(imagemin({ optimizationLevel: 5, progressive: true, interlaced: true })))
     .pipe(gulp.dest('public/assets/img'))
     .pipe(notify({ message: 'images_Index task complete' }));
@@ -157,17 +154,17 @@ gulp.task('clean', function() {
 //WATCHERS
 gulp.task('watch', function() {
 
-  gulp.watch('app/components/**/styles/*.scss', ['styles']); //SCSS
-  gulp.watch('app/assets/styles/*.scss', ['styles_Index']); //SCSS
+  gulp.watch('src/app/components/**/styles/*.scss', ['styles']); //SCSS
+  gulp.watch('src/app/assets/styles/*.scss', ['styles_Index']); //SCSS
   
-  gulp.watch(['app/components/**/scripts/*.js', 'app/components/**/*.js'], ['scripts']); //JS
-  gulp.watch(['app/app.js', 'app/scripts/**.js' , 'app/scripts/bloks/**/*.js', 'app/*.controller.js'], ['scripts']); //INDEX.JS
+  gulp.watch(['src/app/components/**/scripts/*.js', 'src/app/components/**/*.js'], ['scripts']); //JS
+  gulp.watch(['src/app/app.js', 'app/scripts/**.js' , 'src/app/scripts/bloks/**/*.js', 'src/app/*.controller.js'], ['scripts']); //INDEX.JS
   
-  gulp.watch('app/components/**/images/*', ['images']); //IMAGES
-  gulp.watch(['app/assets/img/*'], ['images_Index']); //IMAGES
+  gulp.watch('src/app/components/**/images/*', ['images']); //IMAGES
+  gulp.watch(['src/app/assets/img/*'], ['images_Index']); //IMAGES
   
-  gulp.watch(['app/*.jade', 'app/assets/templates/*.jade'], ['templates_Index']); //INDEX.JADE
-  gulp.watch('app/components/**/*.jade', ['templates']); //JADES
+  gulp.watch(['src/app/*.jade', 'src/app/assets/templates/*.jade'], ['templates_Index']); //INDEX.JADE
+  gulp.watch('src/app/components/**/*.jade', ['templates']); //JADES
 
   livereload.listen();
   gulp.watch('public/**').on('change', livereload.changed);

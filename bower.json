@@ -7,7 +7,7 @@
     "bower_components"
   ],
   "dependencies": {
-    "angular": "1.5.8",
+    "angular": "^1.5.8",
     "jquery": "^3.1.1",
     "bootstrap": "boostrap#^3.3.7",
     "angular-ui-router": "^0.3.2",
